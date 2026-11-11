@@ -1,0 +1,42 @@
+    <section class="page-head">
+      <div class="page-head__main">
+        <p class="eyebrow eyebrow--row"><span>Case studies</span><span class="muted">3 projekty · 2023 — 2026</span></p>
+        <h1 class="h1">Od pytania <em>do decyzji.</em></h1>
+      </div>
+      <p class="lead page-head__lead">Każdy projekt opisuję tak samo: jakie pytanie postawił zespół, jak szukałam odpowiedzi i jaką decyzję udało się dzięki temu podjąć.</p>
+    </section>
+
+    <div class="filterbar">
+      <p class="filterbar__label">Pokaż:</p>
+      <div class="filters" role="group" aria-label="Filtruj case studies">
+        <button type="button" class="filter is-active" data-filter="all" aria-pressed="true">Wszystkie <small>03</small></button>
+        <button type="button" class="filter" data-filter="badania" aria-pressed="false">Badania <small>02</small></button>
+        <button type="button" class="filter" data-filter="strategia" aria-pressed="false">Strategia <small>02</small></button>
+        <button type="button" class="filter" data-filter="design" aria-pressed="false">Design <small>01</small></button>
+      </div>
+      <p class="status">[część projektów pod NDA]</p>
+    </div>
+
+    <section class="cases__list cases__list--page" aria-label="Lista case studies">
+{{cases}}
+    </section>
+
+{{cta}}
+
+    <script>
+      const filters = document.querySelectorAll('.filter');
+      const cases = document.querySelectorAll('.case');
+      filters.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const f = btn.dataset.filter;
+          filters.forEach((b) => {
+            const on = b === btn;
+            b.classList.toggle('is-active', on);
+            b.setAttribute('aria-pressed', on);
+          });
+          cases.forEach((c) => {
+            c.hidden = !(f === 'all' || c.dataset.cat.split(' ').includes(f));
+          });
+        });
+      });
+    </script>
